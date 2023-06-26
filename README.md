@@ -83,5 +83,12 @@ Successfull Replication <br>
 
 ![secondary-postgres-replication](https://github.com/Vadiraj-Puranik/DBRE-Assesment/assets/113619300/cc3d57b3-8656-4051-9f60-f192a0ac9868)
 
+## Contact
+Feel free to reach out to me on below handles<br>
+
+Email: shreyaspuranik008@gmail.com <br>
+LinkedIn: [Vadiraj-Puranik](https://www.linkedin.com/in/vadiraj-puranik-4518a4165) <br>
+Medium : [How to crack terraform certification on your first attempt](https://medium.com/@vadiraj.puranik/secrets-unveiled-how-to-ace-the-terraform-certification-exam-on-your-first-attempt-cb7622c45da1)
+
 
 

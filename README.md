@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Description
-The Repositary focuses on using **Terraform** for provisioning **VPC Network**,**Firewalls**, **Primary&Standby Databases**, **GCP Cloud Storage Bucket**, **Monitoring CPU and Disk Utilization Policies** on Google Cloud Platform (GCP). The project aims to demonstrate how to automate the creation and management of Primary Postgres instance and Standby Postgres Instance using Terraform's declarative configuration language.
+The Repository focuses on using **Terraform** for provisioning **VPC Network**,**Firewalls**, **Primary&Standby Databases**, **GCP Cloud Storage Bucket**, **Monitoring CPU and Disk Utilization Policies** on Google Cloud Platform (GCP). The project aims to demonstrate how to automate the creation and management of Primary Postgres instance and Standby Postgres Instance using Terraform's declarative configuration language.
 
 ## Table of Contents
 - [Walkthrough](#walkthrough)
@@ -12,7 +12,7 @@ The Repositary focuses on using **Terraform** for provisioning **VPC Network**,*
 
 ## Walkthrough
 -> The infrastructure has been provisioned using Terraform, and has a Debian Primary server running PostgreSQL 13. 
-Terraform has been initialized with the necessary configurations, ensuring a smooth deployment. primary-Postgres-server is initialized with pgbench schema.<br>
+Terraform has been initialized with the necessary configurations, ensuring a smooth deployment. Primary-Postgres-server is initialized with pgbench schema.<br>
 How does the server has Postgres installed ? <br>
 I have written a startup script (**primary_startup.sh**) which installs postgresql-13 and opens port 5432 for accepting connections. <br>
 
@@ -24,7 +24,7 @@ I have written a startup script (**primary_startup.sh**) which installs postgres
 
 ## **ReplicationSetup-Primary.sh** <br>
 Uses helper file external_ip.txt which consist of the public ip of the primary server to establish SSH Connection using Private and Public Keys located on Local System.<br>
-ReplicationSetup-Primary.sh creates a pgbench schema, a table called ToogltrackAssesment and inserts value in ToogltrackAssesment. It further creates a user called repuser used for replication and a replication slot (repslot).<br>
+ReplicationSetup-Primary.sh creates a **pgbench** schema, a table called **ToogltrackAssesment** and inserts value in **ToogltrackAssesment**. It further creates a user called **repuser** used for replication and a replication slot (repslot).<br>
 `listen_addresses` - Allowing to listen on all network addresses available on the server of the network addresses on the server, so that the standby server could access it.<br>
 `wal_level` - By setting the wal_level parameter to replica, the script ensures that the level of data written to the Write-Ahead Log (WAL) is sufficient to support the replication process<br>
 `max_wal_senders` - To facilitate the streaming of Write-Ahead Log (WAL) data to the standby server, the script ensures the availability of the required number of wal_sender processes<br>

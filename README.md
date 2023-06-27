@@ -119,7 +119,7 @@ Induced stress on primary-postgres-instance to make it reach 95% threshold
 
 ![image](https://github.com/Vadiraj-Puranik/DBRE-Assesment/assets/113619300/bfb681ae-5b71-4adb-b115-42bb2c840f68)
 
-## Alert notification received via alert channel <br>
+Alert notification received via alert channel <br>
 ![image](https://github.com/Vadiraj-Puranik/DBRE-Assesment/assets/113619300/3b01e869-a9bb-4b0e-8ae7-9f34010fc067)
 
 

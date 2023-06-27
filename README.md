@@ -10,7 +10,7 @@ The Repository focuses on using **Terraform** for provisioning **VPC Network**,*
 - [Files](#files)
 - [Testing](#testing)
 
-## Walkthrough
+# Walkthrough
 -> The infrastructure has been provisioned using Terraform, and has a Debian Primary server running PostgreSQL 13. 
 Terraform has been initialized with the necessary configurations, ensuring a smooth deployment. Primary-Postgres-server is initialized with pgbench schema.<br>
 How does the server has Postgres installed ? <br>
@@ -22,7 +22,7 @@ I have written a startup script (**primary_startup.sh**) which installs postgres
 
 ->As soon as the servers are provisioned using terraform we are making use of bash scripts to setup replication between primary and standby postgres servers<br>
 
-## **ReplicationSetup-Primary.sh** <br>
+### **ReplicationSetup-Primary.sh** <br>
 Uses helper file external_ip.txt which consist of the public ip of the primary server to establish SSH Connection using Private and Public Keys located on Local System.<br>
 ReplicationSetup-Primary.sh creates a **pgbench** schema, a table called **ToogltrackAssesment** and inserts value in **ToogltrackAssesment**. It further creates a user called **repuser** used for replication and a replication slot (repslot).<br>
 `listen_addresses` - Allowing to listen on all network addresses available on the server of the network addresses on the server, so that the standby server could access it.<br>
@@ -35,7 +35,7 @@ To allow replication connections, the script appends the following configuration
 The above line allows the standby server to establish access using the user repluser from a specified IP address, utilizing password authentication for secure connectivity.<br>
 `postgresql.service` is restarted after updating configuration file.
 
-## **ReplicationSetup-Secondary.sh** <br>
+### **ReplicationSetup-Secondary.sh** <br>
 Uses helper file standby_ip.txt which consist of the public ip of the standby-postres-server to establish SSH Connection using Private and Public Keys located on Local System.<br>
 Prior to implementing any modifications of configuration the script stops PostgreSQL service and removes earlier configurations from from postgres data directory `/var/lib/postgresql/13/main/*`<br>
 we export `PGPASSWORD='mypassword'` and run base backup which achieve the initial synchronization of the databases, the script retrieves a base backup from the primary server and proceeds to restore it on the standby server. This process ensures that the standby server starts with an up-to-date copy of the database, establishing the initial synchronization and enabling seamless replication moving forward.<br>
@@ -43,7 +43,7 @@ To inform the current PostgreSQL instance that it should operate in standby mode
 `postgresql.service` is restarted after updating configuration file.
 
 
-## Files
+# Files
 In this section, I will provide an overview of the file locations and their respective functionalities:<br>
 
 **terraform.tf** : The terraform.tf file specifies the cloud provider or service provider details and configuration. It defines which provider plugin to use, along with the required authentication credentials, region, and other provider-specific settings.<br>
@@ -66,7 +66,7 @@ terraform.tf
 **Configurations.md** : This file provides detailed information on the configuration of the cloud resources used and the rationale behind their selection.<br>
 
 
-## Testing
+# Testing
 Postgres VPC Network<br>
 
 ![image](https://github.com/Vadiraj-Puranik/DBRE-Assesment/assets/113619300/2f68b55b-1dc2-4ca3-a978-f96899397c1b)
@@ -97,7 +97,7 @@ Successfull Replication <br>
 
 ![secondary-postgres-replication](https://github.com/Vadiraj-Puranik/DBRE-Assesment/assets/113619300/cc3d57b3-8656-4051-9f60-f192a0ac9868)
 
-## Contact
+# Contact
 Feel free to reach out to me on below handles<br>
 
 Email: shreyaspuranik008@gmail.com <br>

@@ -142,13 +142,14 @@ resource "google_monitoring_alert_policy" "disk-alert-policy" {
   conditions {
     display_name = "High-Disk-Utilization-Policyc"
     condition_threshold {
-      filter          = "metric.type=\"compute.googleapis.com/instance/disk/write_bytes_count\" AND resource.type=\"gce_instance\""
+      filter          = "resource.type = \"gce_instance\" AND metric.type = \"agent.googleapis.com/disk/percent_used\"",
       duration        = "60s"
       comparison      = "COMPARISON_GT"
       threshold_value = 85
       aggregations {
         alignment_period   = "60s"
-        per_series_aligner = "ALIGN_RATE"
+        per_series_aligner = "ALIGN_MEAN"
+        crossSeriesReducer: "REDUCE_NONE"
       }
     }
   }

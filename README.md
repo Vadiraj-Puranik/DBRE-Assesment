@@ -6,11 +6,11 @@
 The Repository focuses on using **Terraform** for provisioning **VPC Network**,**Firewalls**, **Primary&Standby Databases**, **GCP Cloud Storage Bucket**, **Monitoring CPU and Disk Utilization Policies** on Google Cloud Platform (GCP). The project aims to demonstrate how to automate the creation and management of Primary Postgres instance and Standby Postgres Instance using Terraform's declarative configuration language.
 
 ## Table of Contents
-- [Walkthrough](#walkthrough)
+- [Implementation](#implementation)
 - [Files](#files)
 - [Testing](#testing)
 
-# Walkthrough
+# Implementation
 -> The infrastructure has been provisioned using Terraform, and has a Debian Primary server running PostgreSQL 13. 
 Terraform has been initialized with the necessary configurations, ensuring a smooth deployment. Primary-Postgres-server is initialized with pgbench schema.<br>
 How does the server has Postgres installed ? <br>

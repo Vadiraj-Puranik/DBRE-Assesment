@@ -80,35 +80,59 @@ terraform.tf
 
 
 # Testing
-Postgres VPC Network<br>
+
+## Postgres VPC Network<br>
 
 ![image](https://github.com/Vadiraj-Puranik/DBRE-Assesment/assets/113619300/2f68b55b-1dc2-4ca3-a978-f96899397c1b)
 
-The following represents the successful launch of both the primary and standby PostgreSQL servers.<br>
+## The following represents the successful launch of both the primary and standby PostgreSQL servers.<br>
 
 ![image](https://github.com/Vadiraj-Puranik/DBRE-Assesment/assets/113619300/c74b34f8-ebdd-472c-96ba-555232d7ad8f)
 
-Firewall Created:<br>
+## Firewall Created:<br>
 
 ![image](https://github.com/Vadiraj-Puranik/DBRE-Assesment/assets/113619300/ec401a1f-8335-4ced-ba48-4525a881b49b)
 
 
-Cloud Storage Bucket<br>
+## Cloud Storage Bucket<br>
 
 ![image](https://github.com/Vadiraj-Puranik/DBRE-Assesment/assets/113619300/04eab858-34bf-41a8-a143-1ef5e7a36f50)
 
-Cloud Monitoring Alert Polices<br>
+## Cloud Monitoring Alert Polices<br>
 
 ![image](https://github.com/Vadiraj-Puranik/DBRE-Assesment/assets/113619300/23e79fdc-f0da-4a1e-ae65-8e213be3949d)
 
-Successfull Replication <br>
-**Primary Postgres Replication**
+## Replication working Successfully <br>
+
+Primary Postgres Replication<br>
 
 ![primary-postgres-replication](https://github.com/Vadiraj-Puranik/DBRE-Assesment/assets/113619300/c3cad6bb-522c-40a3-a8ef-cf5746cce55f)
 
-**Secondary Postgres Replication**
+Secondary Postgres Replication <br>
 
 ![secondary-postgres-replication](https://github.com/Vadiraj-Puranik/DBRE-Assesment/assets/113619300/cc3d57b3-8656-4051-9f60-f192a0ac9868)
+
+
+
+## Alerts received for the CPU policy created  <br>
+Induced stress on primary-postgres-instance to make it reach 95% threshold
+
+![image](https://github.com/Vadiraj-Puranik/DBRE-Assesment/assets/113619300/bfb681ae-5b71-4adb-b115-42bb2c840f68)
+
+## Alert notification received via alert channel <br>
+![image](https://github.com/Vadiraj-Puranik/DBRE-Assesment/assets/113619300/3b01e869-a9bb-4b0e-8ae7-9f34010fc067)
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Contact
 Feel free to reach out to me on below handles<br>
@@ -116,6 +140,8 @@ Feel free to reach out to me on below handles<br>
 Email: shreyaspuranik008@gmail.com <br>
 LinkedIn: [Vadiraj-Puranik](https://www.linkedin.com/in/vadiraj-puranik-4518a4165) <br>
 Medium : [How to crack terraform certification on your first attempt](https://medium.com/@vadiraj.puranik/secrets-unveiled-how-to-ace-the-terraform-certification-exam-on-your-first-attempt-cb7622c45da1)
+
+
 
 
 

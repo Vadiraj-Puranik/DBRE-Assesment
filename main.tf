@@ -30,7 +30,7 @@ resource "google_compute_firewall" "postgres-allow-ssh" {
 
 # Create a Compute Engine instance for the primary server
 resource "google_compute_instance" "primary-postgres-instance" {
-  name         = "primary-postgres-instance"
+  name         = var.primary_instance_name
   machine_type = "n1-standard-1"
   zone         = var.primary_zone
   boot_disk {
@@ -56,7 +56,7 @@ resource "google_compute_instance" "primary-postgres-instance" {
 
 # Create a Compute Engine instance for the standby server
 resource "google_compute_instance" "standby-postgres-instance" {
-  name         = "standby-postgres-servere"
+  name         = var.primary_instance_name
   machine_type = "n1-standard-1"
   zone         = var.primary_zone
   boot_disk {
@@ -86,8 +86,6 @@ resource "google_compute_instance" "standby-postgres-instance" {
   EOT
   }
 
-
-
   metadata_startup_script = file("${path.module}/standby_startup.sh")
 
 }
@@ -109,7 +107,7 @@ resource "google_storage_bucket" "postgresbackup_bucket" {
 }
 
 
-#Setup an email alerting system:
+#Setup an email alerting channel for receiving alert notification:
 resource "google_monitoring_notification_channel" "email-alerting" {
   display_name = "Email Channel"
   type         = "email"

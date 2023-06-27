@@ -11,36 +11,49 @@ The Repository focuses on using **Terraform** for provisioning **VPC Network**,*
 - [Testing](#testing)
 
 # Implementation
--> The infrastructure has been provisioned using Terraform, and has a Debian Primary server running PostgreSQL 13. 
+
+▪ The infrastructure has been provisioned using Terraform, and has a Debian Primary server running PostgreSQL 13. 
 Terraform has been initialized with the necessary configurations, ensuring a smooth deployment. Primary-Postgres-server is initialized with pgbench schema.<br>
 How does the server has Postgres installed ? <br>
-I have written a startup script (**primary_startup.sh**) which installs postgresql-13 and opens port 5432 for accepting connections. <br>
+▪ I have written a startup script (**primary_startup.sh**) which installs postgresql-13 and opens port 5432 for accepting connections. <br>
 
--> Once the instance is up the public(external-ip) of the instance is stored in **external_ip.txt** file.<br>
+▪ Once the instance is up the public(external-ip) of the instance is stored in **external_ip.txt** file.<br>
 
--> Alongside the primary server, we also have provisioned a secondary server(**standby-postgres-instance**) running PostgreSQL 13 using Terraform. Replication has been established between the primary and secondary databases, guaranteeing data consistency and availability.I have written a startup script (**standby_startup.sh**) which installs postgresql-13 and opens port 5432 for accepting connections.While it is possible to use the same primary_startup.sh script for the standby PostgreSQL instance, I have developed a new script specifically for the standby instance, taking into consideration any future modifications that may be required exclusively for the standby environment<br>
+▪ Alongside the primary server, we also have provisioned a secondary server(**standby-postgres-instance**) running PostgreSQL 13 using Terraform. Replication has been established between the primary and secondary databases, guaranteeing data consistency and availability.I have written a startup script (**standby_startup.sh**) which installs postgresql-13 and opens port 5432 for accepting connections.While it is possible to use the same primary_startup.sh script for the standby PostgreSQL instance, I have developed a new script specifically for the standby instance, taking into consideration any future modifications that may be required exclusively for the standby environment<br>
 
-->As soon as the servers are provisioned using terraform we are making use of bash scripts to setup replication between primary and standby postgres servers<br>
+▪ As soon as the servers are provisioned using terraform we are making use of bash scripts to setup replication between primary and standby postgres servers<br>
 
 ### **ReplicationSetup-Primary.sh** <br>
-Uses helper file external_ip.txt which consist of the public ip of the primary server to establish SSH Connection using Private and Public Keys located on Local System.<br>
-ReplicationSetup-Primary.sh creates a **pgbench** schema, a table called **ToogltrackAssesment** and inserts value in **ToogltrackAssesment**. It further creates a user called **repuser** used for replication and a replication slot (repslot).<br>
-`listen_addresses` - Allowing to listen on all network addresses available on the server of the network addresses on the server, so that the standby server could access it.<br>
-`wal_level` - By setting the wal_level parameter to replica, the script ensures that the level of data written to the Write-Ahead Log (WAL) is sufficient to support the replication process<br>
-`max_wal_senders` - To facilitate the streaming of Write-Ahead Log (WAL) data to the standby server, the script ensures the availability of the required number of wal_sender processes<br>
-`hot_standby` - Enabling the hot_standby configuration option grants the ability to execute read-only operations on the standby server, 
-`primary_conninfo` = 'user=repluser host=[External_ip] port=5432 sslmode=prefer sslcompression=1' <br>
+▪ Uses helper file external_ip.txt which consist of the public ip of the primary server to establish SSH Connection using Private and Public Keys located on Local System.<br>
+
+▪ ReplicationSetup-Primary.sh creates a **pgbench** schema, a table called **ToogltrackAssesment** and inserts value in **ToogltrackAssesment**. It further creates a user called **repuser** used for replication and a replication slot (repslot).<br>
+
+▪ `listen_addresses` - Allowing to listen on all network addresses available on the server of the network addresses on the server, so that the standby server could access it.<br>
+
+▪ `wal_level` - By setting the wal_level parameter to replica, the script ensures that the level of data written to the Write-Ahead Log (WAL) is sufficient to support the replication process<br>
+
+▪ `max_wal_senders` - To facilitate the streaming of Write-Ahead Log (WAL) data to the standby server, the script ensures the availability of the required number of wal_sender processes<br>
+
+▪ `hot_standby` - Enabling the hot_standby configuration option grants the ability to execute read-only operations on the standby server, 
+
+▪ `primary_conninfo` = 'user=repluser host=[primary_server_ip] port=5432 sslmode=prefer sslcompression=1' <br>
 To allow replication connections, the script appends the following configuration to the end of the pg_hba.conf file<br>
-`host	replication		repuser	[standby-postgres-server-ip]/32		md5`<br>
+
+▪ `host	replication		repuser	[standby-postgres-server-ip]/32		md5`<br>
 The above line allows the standby server to establish access using the user repluser from a specified IP address, utilizing password authentication for secure connectivity.<br>
+
 `postgresql.service` is restarted after updating configuration file.
 
 ### **ReplicationSetup-Secondary.sh** <br>
-Uses helper file standby_ip.txt which consist of the public ip of the standby-postres-server to establish SSH Connection using Private and Public Keys located on Local System.<br>
-Prior to implementing any modifications of configuration the script stops PostgreSQL service and removes earlier configurations from from postgres data directory `/var/lib/postgresql/13/main/*`<br>
-we export `PGPASSWORD='mypassword'` and run base backup which achieve the initial synchronization of the databases, the script retrieves a base backup from the primary server and proceeds to restore it on the standby server. This process ensures that the standby server starts with an up-to-date copy of the database, establishing the initial synchronization and enabling seamless replication moving forward.<br>
-To inform the current PostgreSQL instance that it should operate in standby mode, the script creates a `standby.signal` file. This file serves as a notification mechanism, triggering the standby functionality within the PostgreSQL instance, ensuring that it operates in accordance with the desired standby configuration.
-`postgresql.service` is restarted after updating configuration file.
+▪  Uses helper file standby_ip.txt which consist of the public ip of the standby-postres-server to establish SSH Connection using Private and Public Keys located on Local System.<br>
+
+▪  Prior to implementing any modifications of configuration the script stops PostgreSQL service and removes earlier configurations from postgres data directory `/var/lib/postgresql/13/main/*`<br>
+
+▪ We export `PGPASSWORD='mypassword'` and run base backup which achieve the initial synchronization of the databases, the script retrieves a base backup from the primary server and proceeds to restore it on the standby server. This process ensures that the standby server starts with an up-to-date copy of the database, establishing the initial synchronization and enabling seamless replication moving forward.<br>
+
+▪ To inform the current PostgreSQL instance that it should operate in standby mode, the script creates a `standby.signal` file. This file serves as a notification mechanism, triggering the standby functionality within the PostgreSQL instance, ensuring that it operates in accordance with the desired standby configuration.
+
+▪ `postgresql.service` is restarted after updating configuration file.
 
 
 # Files

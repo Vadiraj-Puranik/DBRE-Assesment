@@ -45,11 +45,25 @@ To inform the current PostgreSQL instance that it should operate in standby mode
 
 ## Files
 In this section, I will provide an overview of the file locations and their respective functionalities:<br>
+
+**terraform.tf** : The terraform.tf file specifies the cloud provider or service provider details and configuration. It defines which provider plugin to use, along with the required authentication credentials, region, and other provider-specific settings.<br>
+
+**main.tf** : The main.tf file is the primary Terraform configuration file for our infrastructure. It typically contains the main components of our infrastructure, such as resource definitions.
+terraform.tf
+
+**variables.tf** : variables.tf file is used to declare input variables for your Terraform configuration. Input variables allow you to parameterize your infrastructure and make it more flexible.
+
+**terraform.tfvars** : terraform.tfvars file is used to store input variable values for our Terraform configuration. It allows us to provide values for the variables defined in our Terraform files without explicitly passing them through the CLI or using environment variables.
+
 **primary_startup.sh**: Located in the bash scripts directory, this script is responsible for initializing and configuring the primary server running PostgreSQL 13<br>
+
 **standby_startup.sh**: Also located in the bash scripts directory, this script is specifically designed for the standby server. It includes similar functionalities to primary_startup.sh It takes into account any future modifications required exclusively for the standby environment.**
+
 **external_ip.txt**: The provided helper file plays a vital role in facilitating SSH access to the primary server by populating it with the external IP address. This information is essential for running the ReplicationSetup-Primary.sh script, which sets up the necessary configurations for the replication process.<br>
+
 **standby_ip.txt** : This file plays a vital role in facilitating SSH access to the secondary server by populating it with the external IP address. This information is essential for running the ReplicationSetup-Secondary.sh script, which sets up the necessary configurations for the replication process.<br>
 
+**Configurations.md** : This file provides detailed information on the configuration of the cloud resources used and the rationale behind their selection.<br>
 
 
 ## Testing

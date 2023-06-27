@@ -22,7 +22,13 @@ variable "private_key_path" {
   type        = string
 
 }
-variable "instance_name" {
+variable "primary_instance_name" {
+  default = "primary-postgres-instance"
+  type    = string
+
+}
+
+variable "secondary_instance_name" {
   default = "primary-postgres-instance"
   type    = string
 

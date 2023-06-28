@@ -37,16 +37,16 @@ I have written a startup script (**primary_startup.sh**) which installs postgres
 
 ▪ `hot_standby` - Enabling the hot_standby configuration option grants the ability to execute read-only operations on the standby server, 
 
-▪ `primary_conninfo` = 'user=repluser host=[primary_server_ip] port=5432 sslmode=prefer sslcompression=1' <br>
+▪ `primary_conninfo` = 'user=repuser host=[primary_server_ip] port=5432 sslmode=prefer sslcompression=1' <br>
 To allow replication connections, the script appends the following configuration to the end of the pg_hba.conf file<br>
 
 ▪ `host	replication		repuser	[standby-postgres-server-ip]/32		md5`<br>
-The above line allows the standby server to establish access using the user repluser from a specified IP address, utilizing password authentication for secure connectivity.<br>
+The above line allows the standby server to establish access using the user repuser from a specified IP address, utilizing password authentication for secure connectivity.<br>
 
 `postgresql.service` is restarted after updating configuration file.
 
 ### **ReplicationSetup-Secondary.sh** <br>
-▪  Uses helper file standby_ip.txt which consist of the public ip of the standby-postres-server to establish SSH Connection using Private and Public Keys located on Local System.<br>
+▪  Uses helper file standby_ip.txt which consist of the public ip of the standby-postres-server to establish SSH Connection using Private and Public Keys.<br>
 
 ▪  Prior to implementing any modifications of configuration the script stops PostgreSQL service and removes earlier configurations from postgres data directory `/var/lib/postgresql/13/main/*`<br>
 
@@ -63,7 +63,7 @@ In this section, I will provide an overview of the file locations and their resp
 **terraform.tf** : The terraform.tf file specifies the cloud provider or service provider details and configuration. It defines which provider plugin to use, along with the required authentication credentials, region, and other provider-specific settings.<br>
 
 **main.tf** : The main.tf file is the primary Terraform configuration file for our infrastructure. It typically contains the main components of our infrastructure, such as resource definitions.
-terraform.tf
+
 
 **variables.tf** : variables.tf file is used to declare input variables for your Terraform configuration. Input variables allow you to parameterize your infrastructure and make it more flexible.
 
@@ -105,11 +105,11 @@ terraform.tf
 
 ## Replication working Successfully <br>
 
-Primary Postgres Replication<br>
+Primary Postgres Replication (10.0.0.3) <br>
 
 ![primary-postgres-replication](https://github.com/Vadiraj-Puranik/DBRE-Assesment/assets/113619300/c3cad6bb-522c-40a3-a8ef-cf5746cce55f)
 
-Secondary Postgres Replication <br>
+Secondary Postgres Replication (10.0.0.2) <br>
 
 ![secondary-postgres-replication](https://github.com/Vadiraj-Puranik/DBRE-Assesment/assets/113619300/cc3d57b3-8656-4051-9f60-f192a0ac9868)
 

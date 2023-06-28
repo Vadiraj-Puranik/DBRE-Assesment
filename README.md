@@ -14,8 +14,9 @@ The Repository focuses on using **Terraform** for provisioning **VPC Network**,*
 
 ▪ The infrastructure has been provisioned using Terraform, and has a Debian Primary server running PostgreSQL 13. 
 Terraform has been initialized with the necessary configurations, ensuring a smooth deployment. Primary-Postgres-server is initialized with pgbench schema.<br>
-How does the server has Postgres installed ? <br>
-▪ I have written a startup script (**primary_startup.sh**) which installs postgresql-13 and opens port 5432 for accepting connections. <br>
+
+▪ How does the server has Postgres installed ? <br>
+I have written a startup script (**primary_startup.sh**) which installs postgresql-13 and opens port 5432 for accepting connections. <br>
 
 ▪ Once the instance is up the public(external-ip) of the instance is stored in **external_ip.txt** file.<br>
 

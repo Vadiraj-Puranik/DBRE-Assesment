@@ -9,6 +9,7 @@ filename="/usr/share/keyrings/apt-postgresql-keyring.gpg"
 # Step 3: Downloaded GPG Key converted to appropriate format
 curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor --output "$filename" -y
 
+
 # Step 4:Download and save the keyring file/addoing user postgres to sudo permissions
 curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor --output /usr/share/keyrings/apt-postgresql-keyring.gpg
 echo "postgres ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/postgres > /dev/null

@@ -6,6 +6,7 @@ primary_ip="${PRIMARY_IP}"
 # Step 1: Install curl and ca-certificates
 sudo apt install -y curl ca-certificates
 
+
 # Step 2: Define the filename for the GPG key for the PostgreSQL repository.
 filename="/usr/share/keyrings/apt-postgresql-keyring.gpg"
 

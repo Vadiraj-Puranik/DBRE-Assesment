@@ -11,7 +11,7 @@ variable "region" {
 variable "primary_zone" {
   description = "Zone for primary instance"
 }
-
+ 
 variable "standby_zone" {
   description = "Zone for standby instance"
 }

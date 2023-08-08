@@ -6,6 +6,7 @@ resource "google_compute_network" "postgres-vpc-network" {
 
 
 
+
 # Create a subnet within the VPC network
 resource "google_compute_subnetwork" "postgres-subnet" {
   name          = "postgres-subnet"

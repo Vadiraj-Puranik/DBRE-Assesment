@@ -10,6 +10,7 @@ ssh -i privatekey vadiraj@${standby_public_ip} <<EOF
 sudo systemctl restart postgresql.service
 sudo rm -rf /var/lib/postgresql/13/main/*
 
+
 #Getting backup of primary-postgres-server for db sync 
 export PGPASSWORD='mypassword'
 sudo -u postgres pg_basebackup -h External_ip -D /var/lib/postgresql/13/main -U repuser -v -P -R -X stream -c fast

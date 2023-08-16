@@ -4,9 +4,6 @@ resource "google_compute_network" "postgres-vpc-network" {
   auto_create_subnetworks = false
 }
 
-
-
-
 # Create a subnet within the VPC network
 resource "google_compute_subnetwork" "postgres-subnet" {
   name          = "postgres-subnet"
@@ -14,6 +11,9 @@ resource "google_compute_subnetwork" "postgres-subnet" {
   network       = google_compute_network.postgres-vpc-network.name
   region        = var.region
 }
+
+
+
 
 # Create firewall allowinng ssh access
 resource "google_compute_firewall" "postgres-allow-ssh" {
@@ -155,4 +155,3 @@ resource "google_monitoring_alert_policy" "disk-alert-policy" {
     }
   }
 }
-
